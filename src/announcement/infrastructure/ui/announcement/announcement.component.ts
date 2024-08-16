@@ -4,7 +4,7 @@ import { getAllAnnouncementUseCaseProvider } from './get-all-announcement.provid
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { deleteAnnouncementUseCaseProvider } from './delete-announcement.provider';
 import { DeleteAnnouncementUseCase } from '../../../app/delete-announcement-use-case';
-
+import { routes } from '../../../../app/app.routes';
 import { Announcement } from '../../../domain/announcement.entity';
 
 import { CommonModule, JsonPipe } from '@angular/common';
@@ -19,16 +19,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SliderModule } from 'primeng/slider';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToolbarModule } from 'primeng/toolbar';
-import { routes } from '../../../../app/app.routes';
 import { DialogModule } from 'primeng/dialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
-import { UpdateAnnouncementUseCase } from '../../../app/update-announcement-use-case';
-import { updateAnnouncementUseCaseProvider } from '../update-announcement/update-announcement.provider';
-import { getByIdAnnouncementUseCaseProvider } from '../update-announcement/get-by-id-announcement.provider';
-import { GetByIdAnnouncementUseCase } from '../../../app/get-by-id-announcement-use-case';
+
 
 @Component({
   selector: 'app-announcement',
@@ -48,7 +44,6 @@ import { GetByIdAnnouncementUseCase } from '../../../app/get-by-id-announcement-
   providers:[
     getAllAnnouncementUseCaseProvider,
     deleteAnnouncementUseCaseProvider,
-    getByIdAnnouncementUseCaseProvider,
     ConfirmationService,
     MessageService
   ],

@@ -9,7 +9,7 @@ export class AddDocumentUseCase{
     private repository: DocumentRepository,
   ){}
 
-   run(entity : Document):Promise<void>{
+   run(entity : FormData):Promise<void>{
 
      return this.repository.add(entity)
   }

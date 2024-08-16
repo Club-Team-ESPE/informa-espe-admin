@@ -17,10 +17,10 @@ export class  DocumentNgHttpRepository implements DocumentRepository{
  
 
   constructor(){}
-   add(entity: Document): Promise<void> {
+   add(entity: FormData): Promise<void> {
     return lastValueFrom(
       this.httpClient
-          .post<any>(ApiSrc.urlBase, entity)
+          .post<any>(`${ApiSrc.urlBase}/documents`, entity)
     )
       
       

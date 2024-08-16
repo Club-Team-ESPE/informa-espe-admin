@@ -1,0 +1,63 @@
+<div class="card ">
+  <div
+  [formGroup]="form()"
+  
+  class="border-solid border-round border-200 p-2 formgrid grid">
+    <div class="field col-12 md:col-6">
+        <label for="name">Nombre</label>
+        <input id="name" type="text"
+        formControlName="name"
+        aria-describedby="name-help"  
+        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        @if(form().controls['name'].touched &&
+          form().controls['name'].errors?.['required']){
+        <small 
+        class="text-red-600"
+        id="name-help">
+        *Este campo es requerido
+        </small>
+        }
+    </div>
+    <div class="field col-12 md:col-6">
+      <p-fileUpload 
+      name="demo[]" 
+      url="#" 
+      (onUpload)="onUpload($event)" 
+      [multiple]="false" 
+      [auto]="true" 
+      accept=".pdf" 
+      maxFileSize="1000000">
+         
+            @if(toUploadDoc){
+              <ul>
+                <li>
+                {{ toUploadDoc.name }} - {{ toUploadDoc.size }} bytes
+                </li>
+            </ul>
+            <img role="presentation" [alt]="toUploadDoc.name" [src]="" width="100" height="50" />
+            }
+              
+        
+          <ng-template pTemplate="file"> </ng-template>
+          <ng-template pTemplate="empty">
+            <div class="flex align-items-center justify-content-center flex-column">
+                <i class="pi pi-cloud-upload border-2 border-circle p-5 text-8xl text-400 border-400"></i>
+                <p class="mt-4 mb-0">Drag and drop files here to upload.</p>
+            </div>
+        </ng-template>
+  </p-fileUpload>
+    
+    <div class="flex col-12 mt-2 gap-3">
+      <p-button
+      type="submit"
+      (onClick)="onSubmit()"
+      [disabled]="!form().valid"
+       label="Submit" />
+      <p-button 
+      routerLink="/document" 
+      label="Cancelar" 
+      severity="secondary" />
+    </div>
+  </div>
+  
+</div>

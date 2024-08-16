@@ -26,7 +26,7 @@ import { CalendarModule } from 'primeng/calendar';
 })
 export class AddAnnouncementComponent {
   addAnnoucement = inject(AddAnnouncementUseCase)
- router = inject(Router)
+  router = inject(Router)
 
   public form = signal<FormGroup>(
    new FormGroup(
