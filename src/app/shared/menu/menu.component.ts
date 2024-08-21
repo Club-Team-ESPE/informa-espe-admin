@@ -28,6 +28,11 @@ const menuItems = [
         icon:'pi pi-megaphone'
     },
     {
+        label: 'News',
+        route:'/new',
+        icon:'pi pi-megaphone'
+    },
+    {
         separator: true
     }
 ];

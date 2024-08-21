@@ -72,10 +72,10 @@ export class AnnouncementComponent implements OnInit{
     this.getAllAnnouncementUC
     .run()
     .then((curr :Announcement[])=> {
-      setTimeout(()=>{
+      /* setTimeout(()=>{ */
         this.announcements = curr;
       this.loading = false;
-    },2000)
+    /* },2000) */
       
     })
   }

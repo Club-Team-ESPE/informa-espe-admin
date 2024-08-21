@@ -5,6 +5,8 @@ import { MenuComponent } from './shared/menu/menu.component';
 import { AddDocumentComponent } from '../document/infrastructure/ui/add-document/add-document.component';
 import { AddAnnouncementComponent } from '../announcement/infrastructure/ui/add-announcement/add-announcement.component';
 import { UpdateAnnouncementComponent } from '../announcement/infrastructure/ui/update-announcement/update-announcement.component';
+import { NewComponent } from '../new/infrastructure/ui/new/new.component';
+import { AddNewComponent } from '../new/infrastructure/ui/add-new/add-new.component';
 
 export const routes: Routes = [
 {
@@ -31,6 +33,14 @@ export const routes: Routes = [
     {
       path:'update-announcement/:id',
       component: UpdateAnnouncementComponent
+    },
+    {
+      path:'new',
+      component: NewComponent
+    },
+    {
+      path:'add-new',
+      component: AddNewComponent
     }
     
   ]

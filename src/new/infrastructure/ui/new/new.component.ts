@@ -1,33 +1,35 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { getAllDocumentUseCaseProvider } from './get-all-document.provider';
-import { GetAllDocumentUseCase } from '../../../app/get-all-document.app';
-
+import { Component, inject } from '@angular/core';
+import { GetAllNewUseCase } from '../../../app/get-all-new.app';
+import { routes } from '../../../../app/app.routes';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { New } from '../../../domain/new.entity';
+import { getAllNewUseCaseProvider } from './get-all-new.provider';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { MultiSelectModule } from 'primeng/multiselect';
 import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
+import { DialogModule } from 'primeng/dialog';
 import { SliderModule } from 'primeng/slider';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToolbarModule } from 'primeng/toolbar';
-import { DialogModule } from 'primeng/dialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
-import { Document } from '../../../domain/document.entity';
-import { routes } from '../../../../app/app.routes';
 
 @Component({
-  selector: 'app-document',
+  selector: 'app-new',
   standalone: true,
   imports: [
+    
     RouterLink,
+    RouterLinkActive,
+    JsonPipe,
     TableModule, TagModule, ButtonModule,IconFieldModule, InputIconModule, 
     CommonModule, MultiSelectModule, InputTextModule, 
     DropdownModule, SliderModule, ProgressBarModule, ToolbarModule,
@@ -37,18 +39,18 @@ import { routes } from '../../../../app/app.routes';
     ToastModule
   ],
   providers:[
-    getAllDocumentUseCaseProvider,
+    getAllNewUseCaseProvider,
+    //deleteAnnouncementUseCaseProvider,
     ConfirmationService,
     MessageService
   ],
-  templateUrl: './document.component.html',
-  styleUrl: './document.component.css'
+  templateUrl: './new.component.html',
+  styleUrl: './new.component.css'
 })
-export class DocumentComponent {
+export class NewComponent {
+  private getAllNew = inject(GetAllNewUseCase) 
 
-  private getAllDocument = inject(GetAllDocumentUseCase) 
-
-  public selectedDocument!: Document;
+  public selectedNew!: New;
 
   public loading: boolean = true;
 
@@ -58,17 +60,14 @@ export class DocumentComponent {
 
   private messageService = inject(MessageService)
 
-  public documents!: Document[];
+  public news!: New[];
 
   ngOnInit():void{
-    this.getAllDocument
+    this.getAllNew
     .run()
     .then((resp)=> {
       this.loading = false
-      this.documents = resp
-    })
-    .catch(resp => {
-      this.loading = false
+      this.news = resp
     })
   }
 

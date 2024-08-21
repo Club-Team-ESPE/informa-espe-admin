@@ -1,9 +1,10 @@
 <div class="card ">
-  <div
+  <form
   [formGroup]="form()"
-  
+  [method]="'POST'"
+   (ngSubmit)="onSubmit()"
   class="border-solid border-round border-200 p-2 formgrid grid">
-    <div class="field col-12 md:col-6">
+    <div class="field col-12 md:col-12">
         <label for="name">Nombre</label>
         <input id="name" type="text"
         formControlName="name"
@@ -18,27 +19,20 @@
         </small>
         }
     </div>
-    <div class="field col-12 md:col-6">
+  <div class="field col-12 md:col-12">
       <p-fileUpload 
-      name="demo[]" 
-      url="#" 
-      (onUpload)="onUpload($event)" 
-      [multiple]="false" 
-      [auto]="true" 
+      name="demo[]"
+      mode="advanced"
+      (onSelect)="onSelect($event)" 
+      multiple="false" 
+      auto="false" 
+      uploadIcon="null"
+      showUploadButton="false"
+      showCancelButton="false"
       accept=".pdf" 
       maxFileSize="1000000">
-         
-            @if(toUploadDoc){
-              <ul>
-                <li>
-                {{ toUploadDoc.name }} - {{ toUploadDoc.size }} bytes
-                </li>
-            </ul>
-            <img role="presentation" [alt]="toUploadDoc.name" [src]="" width="100" height="50" />
-            }
-              
-        
-          <ng-template pTemplate="file"> </ng-template>
+      
+      
           <ng-template pTemplate="empty">
             <div class="flex align-items-center justify-content-center flex-column">
                 <i class="pi pi-cloud-upload border-2 border-circle p-5 text-8xl text-400 border-400"></i>
@@ -46,18 +40,18 @@
             </div>
         </ng-template>
   </p-fileUpload>
-    
-    <div class="flex col-12 mt-2 gap-3">
-      <p-button
-      type="submit"
-      (onClick)="onSubmit()"
-      [disabled]="!form().valid"
-       label="Submit" />
-      <p-button 
-      routerLink="/document" 
-      label="Cancelar" 
-      severity="secondary" />
-    </div>
   </div>
-  
+  <div class="flex col-12 mt-2 gap-3">
+    <p-button
+    type="submit"
+   
+    [disabled]="!form().valid"
+     label="Submit" />
+    <p-button 
+    routerLink="/document" 
+    label="Cancelar" 
+    severity="secondary" />
+  </div>
+</form>
+
 </div>

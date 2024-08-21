@@ -7,7 +7,10 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { Router, RouterLink } from '@angular/router';
 import { objToFormData } from '../../../../app/shared/utils/objectToFormData';
-import { FileUploadEvent, FileUploadModule } from 'primeng/fileupload';
+import { FileSelectEvent, FileUploadEvent, FileUploadModule } from 'primeng/fileupload';
+import { fileToBase64 } from '../../../../app/shared/utils/fileToBase64';
+
+
 
 @Component({
   selector: 'app-add-document',
@@ -33,7 +36,10 @@ export class AddDocumentComponent {
   addDocument : AddDocumentUseCase = inject(AddDocumentUseCase)
 
   private router = inject(Router)
-  public toUploadDoc !:File;
+  public toUploadDoc = signal<File>(new File([''], ''));
+  public srcImg = signal<string>('');
+
+
 
 
 
@@ -45,12 +51,26 @@ export class AddDocumentComponent {
    )
   )
 
-  onUpload($event:any) {
-    
-   
-    this.toUploadDoc=($event.files[0]);
+  pdfToBase64(file: File):Promise<string>{
+    return fileToBase64(file);
+  }
 
-   console.warn(this.toUploadDoc)
+  onSelect($event:FileSelectEvent) {
+    const input = $event;
+    
+    
+    if(input.files){
+      fileToBase64(input.files[0])
+      .then(curr => {
+        console.warn(curr)
+      this.srcImg.set(curr)
+      })
+      this.toUploadDoc.set(input.files[0]);
+      console.warn(this.srcImg())
+    }
+    
+
+   
   
 }
 
@@ -58,11 +78,11 @@ export class AddDocumentComponent {
     let fd = objToFormData(
       {
         ...this.form().value,
-        file: this.toUploadDoc
+        file: this.toUploadDoc()
       }
     )
     
-    console.info(this.toUploadDoc)
+    console.info(this.toUploadDoc())
     console.info(
       fd
       
@@ -70,14 +90,14 @@ export class AddDocumentComponent {
     for (const pair of fd.entries()) {
       console.warn(`${pair[0]}: ${pair[1]}\n`);
     }
-    /* this.addDocument
+    this.addDocument
     .run(fd)
     .then(()=>{
       this.router.navigate(['document'],);
     })
     .catch(err=>{
       console.error(err)
-    }) */
+    })
   }
 
 }

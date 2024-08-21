@@ -35,10 +35,18 @@ export class  DocumentNgHttpRepository implements DocumentRepository{
     
   }
   getForId(id: number): Promise<Document> {
-    throw new Error("Method not implemented.");
+    return  lastValueFrom<Document>( 
+      this.httpClient
+          .get<Document>(`${ApiSrc.urlBase}/documents/${id}`).pipe(
+            tap(data => data)
+          )
+    )
   }
   delete(id: number): Promise<void> {
-    throw new Error("Method not implemented.");
+    return   lastValueFrom<void>( 
+      this.httpClient
+          .delete<void>(`${ApiSrc.urlBase}/documents/${id}`)
+    )
   }
 
 

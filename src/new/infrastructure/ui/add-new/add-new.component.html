@@ -1,0 +1,71 @@
+<div class="card ">
+  <form
+  [formGroup]="form()"
+  enctype="multipart/form-data"
+  (ngSubmit)="onSubmit()"
+  class="border-solid border-round border-200 p-2 formgrid grid">
+    <div class="field col-12 md:col-12">
+        <label for="titulo">Título</label>
+        <input id="titulo" type="text" 
+        formControlName="titulo"
+        aria-describedby="titulo-help"  
+        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        @if(form().controls['titulo'].touched &&
+        form().controls['titulo'].errors?.['noUpperCaseAtStart']){
+        <small 
+        class="text-red-600"
+        id="titulo-help">
+        *Debe empezar con una mayúscula
+        </small>
+        }
+    </div>
+    <div class="field col-12">
+        <label for="descripcion">Descipción</label>
+        <textarea id="descripcion" type="text" rows="4" 
+        formControlName="descripcion"
+        aria-describedby="descripcion-help"  
+        class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+        @if(form().controls['descripcion'].touched &&
+        form().controls['descripcion'].errors?.['noUpperCaseAtStart']){
+        <small 
+        class="text-red-600"
+        id="descripcion-help">
+        *Debe empezar con una mayúscula
+        </small>
+        }
+    </div>
+    <div class="field col-12 md:col-12">
+      <p-fileUpload 
+      name="demo[]"
+      mode="advanced"
+      (onSelect)="onSelect($event)" 
+      multiple="true" 
+      auto="false" 
+      uploadIcon="null"
+      showUploadButton="false"
+      showCancelButton="false"
+      accept="image/*" 
+      maxFileSize="1000000">
+    
+      <ng-template pTemplate="empty">
+          <div class="flex align-items-center justify-content-center flex-column">
+            <i class="pi pi-cloud-upload border-2 border-circle p-5 text-8xl text-400 border-400"></i>
+            <p class="mt-4 mb-0">Drag and drop files here to upload.</p>
+          </div>
+        </ng-template>
+      </p-fileUpload>
+      
+      
+    </div>
+    <div class="flex col-12 mt-2 gap-3">
+      <p-button
+      type="submit"
+      [disabled]="!form().valid"
+       label="Submit" />
+      <p-button 
+      routerLink="/announcement" 
+      label="Cancelar" 
+      severity="secondary" />
+    </div>
+  </form>
+</div>
